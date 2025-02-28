@@ -1,0 +1,496 @@
+/*
+  face.css
+  --------
+  This stylesheet contains all the CSS for the face drawing API.
+  It includes global styles, styles for the face container, all individual face parts,
+  and the animations (blinking, aspirated puff/cloud, etc.).
+*/
+
+
+/* Controls (Checkboxes) */
+#FcE_controls {
+  margin-bottom: 20px;
+  display: inline-block;
+  z-index: 1;
+}
+#FcE_controls label {
+  margin: 0 5px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+/* Face Container */
+#face-container {
+  display: inline-block;
+  position: relative;
+  width: 240px;
+  height: 360px;
+  border: 2px solid #000;
+  margin: 0 auto;
+  background-color: white;
+  z-index: 1;
+}
+
+/* Speaker & Voicing */
+#FcE_speaker-voicing-container {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  z-index: 2;
+}
+#FcE_speaker-icon svg {
+  width: 24px;
+  height: 24px;
+  fill: #333;
+  z-index: 2;
+}
+#FcE_voicing-icon {
+  width: 24px;
+  height: 24px;
+  border: 1px solid #333;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+  z-index: 2;
+}
+#FcE_voicing-icon.voiced {
+  background-color: green;
+  z-index: 2;
+}
+#FcE_voicing-icon.voiceless {
+  background-color: red;
+  z-index: 2;
+}
+
+/* Head & Face Parts */
+#FcE_head {
+  position: absolute;
+  top: 40px;
+  left: 30px; /* Center the 180px head in 240px container */
+  width: 180px;
+  height: 210px;
+  background: radial-gradient(ellipse at center, #F8C471 0%, #F5CBA7 100%);
+  border: 2px solid #000;
+  border-radius: 50% / 60%; /* Make the face narrower at the bottom */
+  overflow: hidden;
+  z-index: 2;
+}
+/* Neck */
+#FcE_neck {
+  position: absolute;
+  top: 200px;
+  left: 80px; /* Center the 80px neck under the 180px head */
+  width: 80px;
+  height: 100px;
+  background-color: #F8C471;
+  border: 2px solid #000;
+  z-index: 1;
+}
+/* Ears */
+.FcE_ear {
+  position: absolute;
+  width: 20px;
+  height: 40px;
+  background-color: #F8C471;
+  border: 2px solid #000;
+  border-radius: 20px;
+  z-index: 2;
+}
+#FcE_ear-left {
+  top: 78px;
+  left: -20px; 
+  transform: rotate(-5deg);
+  z-index: 2;
+}
+#FcE_ear-right {
+  top: 75px;
+  left: 176px; 
+  transform: rotate(5deg);
+  z-index: 2;
+}
+/* Hair */
+#FcE_hair {
+  position: absolute;
+  top: -20px;
+  left: 0;
+  width: 180px;
+  height: 60px;
+  background: linear-gradient(to bottom, #654321, transparent);
+  border-top-left-radius: 100px;
+  border-top-right-radius: 100px;
+  z-index: 3;
+}
+/* Forehead */
+#FcE_forehead {
+  position: absolute;
+  top: -10px;
+  left: 0;
+  width: 180px;
+  height: 60px;
+  background: linear-gradient(to bottom, #654321, transparent);
+  border-top-left-radius: 100px;
+  border-top-right-radius: 100px;
+  z-index: 3;
+}
+/* Chin Line */
+#FcE_chin {
+  position: absolute;
+  bottom: 0px;
+  left: 30px;
+  width: 120px;
+  height: 20px;
+  background-color: lightgray;
+  border-radius: 2px;
+  opacity: 0.3;
+  z-index: 2;
+}
+/* Eyebrows */
+.FcE_eyebrow {
+  position: absolute;
+  width: 30px;
+  height: 5px;
+  background-color: #333;
+  border-radius: 5px;
+  animation: FcE_eyebrowOscillation 10s ease-in-out infinite;
+  z-index: 3;
+}
+#FcE_eyebrow-left {
+  top: 35px;
+  left: 50px; 
+  z-index: 3;
+}
+#FcE_eyebrow-right {
+  top: 35px;
+  left: 110px; 
+  z-index: 3;
+}
+@keyframes FcE_eyebrowOscillation {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+/* Nose */
+#FcE_nose-bridge {
+  position: absolute;
+  top: 80px;
+  left: 85px;
+  width: 10px;
+  height: 30px;
+  background-color: #F5B041;
+  border-radius: 5px;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+#FcE_nose {
+  position: absolute;
+  top: 100px;
+  left: 75px;
+  width: 30px;
+  height: 25px;
+  background-color: #F5B041;
+  border-radius: 40% 40% 50% 50%;
+  transition: all 0.3s ease;
+  z-index: 3;
+  box-shadow: 0 2px 2px rgba(0,0,0,0.2);
+}
+.nostril {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background-color: black;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  z-index: 3;
+}
+#FcE_nostril-left {
+  left: 6px;
+  top: 12px;
+  z-index: 3;
+}
+#FcE_nostril-right {
+  right: 6px;
+  top: 12px;
+  z-index: 3;
+}
+.nasal-icon {
+  position: absolute;
+  color: blue;
+  font-size: 16px;
+  opacity: 0;
+  display: none;
+  z-index: 4;
+}
+#FcE_nose.nasal-active .nasal-icon {
+  display: inline;
+  opacity: 1;
+  z-index: 4;
+}
+.nasal-icon.left {
+  left: -10px;
+  top: -5px;
+  animation: FcE_nasalIconAnimLeft 2s ease-out 2;
+  z-index: 4;
+}
+.nasal-icon.right {
+  right: -10px;
+  top: -5px;
+  animation: FcE_nasalIconAnimRight 2s ease-out 2;
+  z-index: 4;
+}
+@keyframes FcE_nasalIconAnimLeft {
+  0% { transform: translate(0, 0); opacity: 1; }
+  100% { transform: translate(-30px, -20px); opacity: 0; }
+}
+@keyframes FcE_nasalIconAnimRight {
+  0% { transform: translate(0, 0); opacity: 1; }
+  100% { transform: translate(30px, -20px); opacity: 0; }
+}
+
+/* Mouth */
+#FcE_mouth {
+  position: absolute;
+  top: 150px;
+  left: 60px; 
+  width: 60px;
+  height: 30px;
+  background-color: #D35400;
+  border-radius: 0 0 40px 40px;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  box-shadow: 0 2px 2px rgba(0,0,0,0.2);
+  z-index: 3;
+}
+#FcE_mouth.rounded {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  top: 150px;
+  z-index: 3;
+}
+#FcE_mouth.stop {
+  width: 40px;
+  height: 10px;
+  border-radius: 5px;
+  top: 150px;
+  z-index: 3;
+}
+#FcE_mouth.affricate {
+  top: 150px;
+  z-index: 3;
+}
+#FcE_teeth {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  background-color: white;
+  z-index: 4;
+}
+#FcE_bottom-teeth {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background-color: white;
+  z-index: 4;
+}
+
+/* Tongue */
+#FcE_tongue {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #F1948A;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  top: 8px;
+  width: 20px;
+  height: 20px;
+  z-index: 3;
+}
+#FcE_tongue.tongue-front {
+  width: 30px;
+  height: 30px;
+  top: 14px;
+  z-index: 3;
+}
+#FcE_tongue.tongue-central {
+  width: 20px;
+  height: 20px;
+  top: 8px;
+  z-index: 3;
+}
+#FcE_tongue.tongue-back {
+  width: 15px;
+  height: 15px;
+  top: 2px;
+  z-index: 3;
+}
+
+/* Eyes */
+.FcE_eye {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid #333;
+  transition: all 0.2s ease;
+  z-index: 3;
+}
+#FcE_eye-left {
+  top: 55px;
+  left: 50px;
+  z-index: 3;
+}
+#FcE_eye-right {
+  top: 55px;
+  left: 110px;
+  z-index: 3;
+}
+.FcE_pupil {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: 8px;
+  height: 8px;
+  background-color: black;
+  border-radius: 50%;
+  transition: transform 0.1s ease;
+  z-index: 4;
+}
+.FcE_eyelid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 30%;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+  pointer-events: none;
+  z-index: 4;
+}
+
+/* Animations */
+@keyframes FcE_blink {
+  0% { height: 20px; }
+  40% { height: 2px; }
+  60% { height: 2px; }
+  100% { height: 20px; }
+}
+.blink {
+  animation: FcE_blink 0.3s forwards;
+  z-index: 4;
+}
+
+/* Indicators */
+.FcE_indicator {
+  position: absolute;
+  left: 50px;
+  top: 150px;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.FcE_wave-icon {
+  display: block;
+  margin: 2px 0;
+  width: 40px;
+  height: 20px;
+  z-index: 1000;
+}
+
+/* Adams Apple */
+#FcE_addams-apple {
+  position: absolute;
+  top: 270px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 12px;
+  background-color: #D2B48C;
+  border-radius: 50%;
+  border: 1px solid #000;
+  z-index: 2;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+}  
+#FcE_addams-apple.glottal {
+  top: 260px;
+  width: 16px;
+  height: 13px;
+  z-index: 2;
+}
+
+/* Aspirated puff */
+.FcE_puff {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 20px;
+  background: rgba(200,200,200,0.8);
+  border-radius: 50%;
+  animation: FcE_puffAnim 0.5s forwards;
+  z-index: 11;
+}
+@keyframes FcE_puffAnim {
+  0% { opacity: 1; transform: translate(-50%, 0) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -30px) scale(2); }
+}
+
+/* Aspirated cloud */
+.FcE_cloud {
+  position: absolute;
+  top: 180px;
+  left: 45%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 30px;
+  background: rgba(0, 0, 255, 0.4);
+  border-radius: 50%;
+  animation: FcE_cloudAnim 0.5s forwards;
+  z-index: 12;
+}
+@keyframes FcE_cloudAnim {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(5);
+  }
+}
+
+/* Mouth modifications for approximant, flap, trill, and tense */
+#FcE_mouth.approximant {
+  background-color: #E67E22;
+  z-index: 3;
+}
+#FcE_mouth.flap {
+  transform: rotate(5deg);
+  z-index: 3;
+}
+#FcE_mouth.trill {
+  animation: FcE_trillAnim 0.5s infinite;
+  z-index: 3;
+}
+@keyframes FcE_trillAnim {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(5deg); }
+  100% { transform: rotate(0deg); }
+}
+#FcE_mouth.tense {
+  height: 35px;
+  width: 70px;
+  z-index: 3;
+}

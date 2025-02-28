@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Glyph API Example & Usage</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .section {
+      margin: 20px 0;
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
+    h2 {
+      margin-top: 0;
+    }
+    /* Example custom styling for API elements */
+    .GlpHcell {
+      /* You can override the cell size, border, etc. here */
+      /* For instance, to change the cell color when active, you might add: */
+      /* background-color: #000 !important; */
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h1>Glyph API Example & Usage</h1>
+  
+  <!-- Usage Description -->
+  <div class="section">
+    <h2>Usage & Options</h2>
+    <p>
+      This example demonstrates the usage of the <code>GlyphEditor</code> API.
+      The API lets you:
+    </p>
+    <ul>
+      <li><strong>Draw a glyph:</strong> In the Editable Glyph section, use your mouse to click or drag to create a glyph. Use the Clear, Undo, and Redo buttons to manage your drawing.</li>
+      <li><strong>Live Compressed Output:</strong> As you draw, a compressed version of your glyph is updated (hidden by default, but toggleable).</li>
+      <li><strong>Load a non-editable glyph:</strong> Paste a compressed glyph string into the provided input, and load it to display only the drawn (black) pixels without any grid lines.</li>
+      <li><strong>Load a glyph for editing:</strong> Paste a compressed glyph string and load it into an editable grid so you can continue editing it.</li>
+    </ul>
+    <p>
+      <strong>Options available in the API:</strong>
+      <ul>
+        <li><code>resolution</code>: Number of cells per row/column (default is 64).</li>
+        <li><code>editable</code>: Boolean indicating whether the glyph is editable. In non-editable mode, grid borders and gaps are removed (default is true).</li>
+        <li><code>outputVisible</code>: Controls whether the live compressed output is shown (default is false).</li>
+        <li><code>onChange</code>: Callback function that receives the compressed glyph text whenever the glyph changes.</li>
+      </ul>
+    </p>
+    <p>
+      You can override the default styling via your CSS – for example, you can change button colors, cell size, or glyph color.
+    </p>
+  </div>
+  
+  <!-- Editable Glyph Section -->
+  <div class="section">
+    <h2>Editable Glyph</h2>
+    <div id="editableGlyph"></div>
+    <p>
+      Live Compressed Output: 
+      <span id="editableOutput"></span>
+    </p>
+    <button id="toggleOutputBtn">Toggle Output</button>
+  </div>
+  
+  <!-- Non-Editable Glyph Section -->
+  <div class="section">
+    <h2>Non-Editable Glyph (Decompressed from Text)</h2>
+    <p>Paste a compressed glyph string and click "Load Non-Editable Glyph". Only the drawn glyph (black pixels) will be shown.</p>
+    <input type="text" id="nonEditableInput" placeholder="Paste compressed glyph here" style="width:60%; padding:5px; font-family: monospace;">
+    <button id="loadNonEditable">Load Non-Editable Glyph</button>
+    <div id="nonEditableGlyph"></div>
+  </div>
+  
+  <!-- Load Glyph for Editing Section -->
+  <div class="section">
+    <h2>Load Glyph for Editing</h2>
+    <p>Paste a compressed glyph string and click "Load Editable Glyph" to load it in an editable grid.</p>
+    <input type="text" id="loadEditableInput" placeholder="Paste compressed glyph here" style="width:60%; padding:5px; font-family: monospace;">
+    <button id="loadEditable">Load Editable Glyph</button>
+    <div id="loadedEditableGlyph"></div>
+  </div>
+  
+  <!-- Include LZString and the Glyph API -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js"></script>
+  <script src="glyphAPI.js"></script>
+  <script>
+    // Create an editable glyph instance.
+    const editableOutputSpan = document.getElementById("editableOutput");
+    const editableGlyph = new GlyphEditor("editableGlyph", {
+      resolution: 64,
+      editable: true,
+      outputVisible: false,  // hidden by default; toggle with the button below.
+      onChange: (compressed) => {
+        editableOutputSpan.textContent = compressed;
+      }
+    });
+
+    // Toggle output button for editable glyph.
+    document.getElementById("toggleOutputBtn").addEventListener("click", () => {
+      editableGlyph.toggleOutput();
+    });
+
+    // Create non-editable glyph instance on demand.
+    let nonEditableGlyph;
+    document.getElementById("loadNonEditable").addEventListener("click", () => {
+      const compressed = document.getElementById("nonEditableInput").value.trim();
+      if (!compressed) return;
+      if (!nonEditableGlyph) {
+        nonEditableGlyph = new GlyphEditor("nonEditableGlyph", {
+          resolution: 64,
+          editable: false,
+          outputVisible: false,
+          onChange: () => {}
+        });
+      }
+      try {
+        nonEditableGlyph.loadGlyph(compressed, false);
+      } catch (e) {
+        alert(e.message);
+      }
+    });
+
+    // Create an instance to load glyph for editing.
+    let loadedEditableGlyph;
+    document.getElementById("loadEditable").addEventListener("click", () => {
+      const compressed = document.getElementById("loadEditableInput").value.trim();
+      if (!compressed) return;
+      if (!loadedEditableGlyph) {
+        loadedEditableGlyph = new GlyphEditor("loadedEditableGlyph", {
+          resolution: 64,
+          editable: true,
+          outputVisible: false,
+          onChange: (compressed) => {
+            console.log("Loaded editable glyph compressed:", compressed);
+          }
+        });
+      }
+      try {
+        loadedEditableGlyph.loadGlyph(compressed, true);
+      } catch (e) {
+        alert(e.message);
+      }
+    });
+  </script>
+  
+  
+  
+
+
+</body>
+</html>

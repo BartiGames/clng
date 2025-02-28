@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Conlang Tool</title>
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="face.css">
+
+  <!-- WinBox.js -->
+  <script src="https://rawcdn.githack.com/nextapps-de/winbox/0.2.82/dist/winbox.bundle.min.js"></script>
+
+  <!-- Global/shared script -->
+  <script defer src="script.js"></script>
+
+  <!-- Each agent in its own file -->
+  <script defer src="cultural.js"></script>
+  <script defer src="phonology.js"></script>
+  <script defer src="grammar.js"></script>
+  <script defer src="vocabulary.js"></script>
+  <script defer src="notes.js"></script>
+  <script defer src="ai.js"></script>
+  <script defer src="langsettings.js"></script>
+  <script defer src="usage.js"></script>
+  <script defer src="programsettings.js"></script>
+  <script defer src="numbers.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js"></script>
+  <script src="glyphAPI.js"></script>
+  <script src="scriptPresets.js"></script>
+  <script src="faceAPI.js"></script>
+
+
+
+
+
+  <!-- Iconify -->
+  <script src="https://code.iconify.design/2/2.1.2/iconify.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Conlang Designer</h1>
+  </header>
+
+  <main>
+    <button onclick="openCulturalAgent()">
+      <span class="iconify" data-icon="mdi:account-group-outline"></span> Cultural
+    </button>
+    <button onclick="openPhonologyAgent()">
+      <span class="iconify" data-icon="mdi:music-note"></span> Phonology
+    </button>
+    <button onclick="openGrammarAgent()">
+      <span class="iconify" data-icon="mdi:book-alphabet"></span> Grammar
+    </button>
+    <button onclick="openVocabularyAgent()">
+      <span class="iconify" data-icon="mdi:book-plus-outline"></span> Vocabulary
+    </button>
+    <button onclick="openNotesModule()">
+      <span class="iconify" data-icon="mdi:note-text-outline"></span> Notes
+    </button>
+    <button onclick="openAIToolkit()">
+      <span class="iconify" data-icon="mdi:robot-outline"></span> AI Tools
+    </button>
+    <button onclick="openLanguageSettings()">
+      <span class="iconify" data-icon="mdi:translate"></span> Language
+    </button>
+    <button onclick="openUsageSimulator()">
+      <span class="iconify" data-icon="mdi:play-circle-outline"></span> Simulator
+    </button>
+    <button onclick="openProgramSettings()">
+      <span class="iconify" data-icon="mdi:cog-outline"></span> Settings
+    </button>
+  </main>
+</body>
+</html>
+
