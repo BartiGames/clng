@@ -7,3 +7,8 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
   const result = await model.generateContent(prompt);
   console.log(result.response.text());
 })();
+/* healthcheck */
+(function() {
+  const myURL = document.currentScript && document.currentScript.src ? document.currentScript.src : window.location.href;
+  window.registerHealthCheck(myURL);
+})();

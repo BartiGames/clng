@@ -1,22 +1,10 @@
 /*
-  faceAPI.js
-  ----------
-  This file implements the Face Drawing API using three approaches:
-  
-  1. A global function (FaceAPI.drawFace) that renders a face inside a specified container,
-     based on an options object.
-  
-  2. A FaceDrawer class that initializes the face drawing and provides an update() method
-     to change the visualization dynamically.
-  
-  3. (Optionally) ES6 module exports for use in modern bundlers.
-  
-  Usage:
-    - Include face.css in your HTML.
-    - Include faceAPI.js via <script src="faceAPI.js"></script>.
-    - Use FaceAPI.drawFace(containerId, options) or instantiate new FaceDrawer(containerId, options).
-*/
-
+ * File: faceAPI.js
+ * Description: Implements the Face Drawing API with functions and classes for rendering and dynamically updating face illustrations.
+ * Version: 1.0.0
+ * Comments: Supports both global functions and a FaceDrawer class for flexible visualization.
+ * MD5 Sum: [INSERT_MD5_HASH_HERE]
+ */
 (function(global){
   // Default options for the face drawing
   const defaultOptions = {
@@ -363,5 +351,3 @@
   
 })(this);
 
-// To use as an ES6 module, you could uncomment the following lines:
-// export { drawFace, FaceDrawer };

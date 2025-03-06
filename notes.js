@@ -37,3 +37,8 @@ function loadNotes() {
   input.onchange = () => loadProject(input.files[0]);
   input.click();
 }
+/* healthcheck */
+(function() {
+  const myURL = document.currentScript && document.currentScript.src ? document.currentScript.src : window.location.href;
+  window.registerHealthCheck(myURL);
+})();

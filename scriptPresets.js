@@ -1,3 +1,10 @@
+/*
+ * File: scriptPresets.js
+ * Description: Defines real-world script presets (e.g., Latin, Greek, Cyrillic) for conlang character mappings.
+ * Version: 1.0.0
+ * Comments: Provides preset configurations for various writing systems.
+ * MD5 Sum: [INSERT_MD5_HASH_HERE]
+ */
 const realWorldScripts = {
   Latin: [
     { character: "A", glyph: "A", method: "keyboard" },

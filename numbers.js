@@ -521,3 +521,8 @@ function openNumbersAgent() {
     updateNumbersSummary();
   });
 }
+/* healthcheck */
+(function() {
+  const myURL = document.currentScript && document.currentScript.src ? document.currentScript.src : window.location.href;
+  window.registerHealthCheck(myURL);
+})();

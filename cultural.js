@@ -1,49 +1,3 @@
-function showModal(title, message, onClose) {
-  const modalContent = document.createElement("div");
-  modalContent.style.padding = "10px";
-  modalContent.style.display = "flex";
-  modalContent.style.flexDirection = "column";
-  modalContent.style.alignItems = "center";
-  modalContent.style.justifyContent = "center";
-  modalContent.style.textAlign = "center";
-  const iconSpan = document.createElement("span");
-  iconSpan.className = "iconify";
-  iconSpan.dataset.icon = "mdi:information-outline";
-  iconSpan.style.fontSize = "48px";
-  iconSpan.style.marginBottom = "10px";
-  modalContent.appendChild(iconSpan);
-  const msgP = document.createElement("p");
-  msgP.textContent = message;
-  msgP.style.margin = "10px 0";
-  modalContent.appendChild(msgP);
-  const okBtn = document.createElement("button");
-  okBtn.textContent = "OK";
-  okBtn.style.padding = "8px 16px";
-  okBtn.style.border = "none";
-  okBtn.style.backgroundColor = "#007bff";
-  okBtn.style.color = "white";
-  okBtn.style.borderRadius = "4px";
-  okBtn.style.cursor = "pointer";
-  okBtn.style.margin = "10px auto";
-  okBtn.onclick = function() {
-    modal.close();
-    if (typeof onClose === "function") onClose();
-  };
-  modalContent.appendChild(okBtn);
-  const modal = new WinBox({
-    title: title,
-    modal: true,
-    width: "40%",
-    height: "20%",
-    x: "center",
-    y: "center",
-    mount: modalContent,
-    onfocus: function () {
-      this.setBackground("#444");
-    }
-  });
-}
-
 function promptForTitle(callback) {
   const modalContent = document.createElement("div");
   modalContent.style.padding = "10px";
@@ -751,3 +705,8 @@ function openCulturalAgent() {
   
   });
 }
+/* healthcheck */
+(function() {
+  const myURL = document.currentScript && document.currentScript.src ? document.currentScript.src : window.location.href;
+  window.registerHealthCheck(myURL);
+})();

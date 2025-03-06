@@ -1,3 +1,10 @@
+/*
+ * File: grammar.js
+ * Description: Handles grammar agent functionalities such as rule creation, editing, deletion, and display.
+ * Version: 1.0.0
+ * Comments: Adapted to manage grammar rules similarly to the vocabulary agent.
+ * MD5 Sum: [INSERT_MD5_HASH_HERE]
+ */
 /***************************************************************
  * GRAMMAR AGENT (Adapted to similar structure as Vocabulary Agent)
  ***************************************************************/
@@ -352,3 +359,8 @@ function openGrammarAgent() {
     }
   });
 }
+/* healthcheck */
+(function() {
+  const myURL = document.currentScript && document.currentScript.src ? document.currentScript.src : window.location.href;
+  window.registerHealthCheck(myURL);
+})();

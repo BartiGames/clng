@@ -1,3 +1,10 @@
+/*
+ * File: langsettings.js
+ * Description: Builds and manages the language settings interface including language name, description, writing system, and number system.
+ * Version: 1.0.0
+ * Comments: Uses inline styles and WinBox for displaying and updating language settings.
+ * MD5 Sum: [INSERT_MD5_HASH_HERE]
+ */
 /*******************************/
 /** Style objects (no global CSS) **/
 const langStyles = {
@@ -279,4 +286,8 @@ function openLanguageSettings() {
     }
   });
 }
-
+/* healthcheck */
+(function() {
+  const myURL = document.currentScript && document.currentScript.src ? document.currentScript.src : window.location.href;
+  window.registerHealthCheck(myURL);
+})();

@@ -1,4 +1,10 @@
-/* glyphAPI.js */
+/*
+ * File: glyphAPI.js
+ * Description: Provides the GlyphEditor class for editing and compressing glyph representations on a grid.
+ * Version: 1.0.0
+ * Comments: Features drawing controls, undo/redo functionality, and output compression.
+ * MD5 Sum: [INSERT_MD5_HASH_HERE]
+ */
 class GlyphEditor {
   constructor(containerId, options = {}) {
     this.container = document.getElementById(containerId);

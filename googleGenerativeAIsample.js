@@ -38,3 +38,8 @@ async function textGenTextOnlyPrompt() {
   }
   // [END text_gen_text_only_prompt]
 }
+/* healthcheck */
+(function() {
+  const myURL = document.currentScript && document.currentScript.src ? document.currentScript.src : window.location.href;
+  window.registerHealthCheck(myURL);
+})();

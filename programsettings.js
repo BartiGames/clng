@@ -1,4 +1,11 @@
-/** PROGRAM SETTINGS HTML **/
+/*
+ * File: programsettings.js
+ * Description: Implements the program settings UI for theme customization and LLM integration.
+ * Version: 1.0.0
+ * Comments: Contains form logic for interface themes and API configuration.
+ * MD5 Sum: [INSERT_MD5_HASH_HERE]
+ */
+
 const programSettingsHTML = `
   <h2>Program Settings</h2>
   <p style="margin-top: 0; font-size: 0.9rem; color: #999;">
@@ -77,6 +84,10 @@ const programSettingsHTML = `
         <textarea id="apiReturn" style="width: 100%; height: 4rem;" readonly></textarea>
       </div>
     </fieldset>
+    <fieldset>
+      <legend>UI Language (barebones use with caution)</legend>
+      <div id="google_translate_element"></div>
+    </fieldset>
   </form>
 `;
 
@@ -85,6 +96,23 @@ function openProgramSettings() {
   // We pass an oncreate callback that receives (container, winboxInstance).
   createWinBox("Program Settings", programSettingsHTML, function (container) {
     initSettingsUI(container);
+    // Initialize Google Translate element within the WinBox container
+    function initGT() {
+      const gtElement = container.querySelector("#google_translate_element");
+      if (gtElement) {
+        new google.translate.TranslateElement({ pageLanguage: 'en' }, gtElement);
+      }
+    }
+    if (window.google && google.translate && google.translate.TranslateElement) {
+      initGT();
+    } else {
+      // Override the callback to initialize GT for this container
+      window.googleTranslateElementInit = initGT;
+      const script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit&log=0";
+      document.head.appendChild(script);
+    }
   });
 }
 
@@ -275,7 +303,7 @@ function initSettingsUI(container) {
         }
         const googleData = await googleRes.json();
         console.debug("Google LLM response:", googleData);
-        // Changed code: extract response text from candidate content if needed.
+        // Extract response text from candidate content if needed.
         const candidate = googleData?.candidates?.[0];
         if (candidate) {
           if (typeof candidate.output === "string") {
@@ -320,3 +348,27 @@ window.addEventListener("DOMContentLoaded", () => {
     document.documentElement.style.setProperty("--dark-title", darkTitle);
   }
 });
+
+// Global Google Translate callback (if needed elsewhere)
+window.googleTranslateElementInit = function() {
+  const gtElement = document.getElementById("google_translate_element");
+  if (gtElement) {
+    new google.translate.TranslateElement({ pageLanguage: 'en' }, gtElement);
+  }
+};
+
+// Global load for Google Translate script (loads only if not already loaded by the WinBox)
+window.addEventListener('load', function() {
+  if (!(window.google && google.translate && google.translate.TranslateElement)) {
+    const script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit&log=0";
+    document.head.appendChild(script);
+  }
+});
+
+/* healthcheck */
+(function() {
+  const myURL = document.currentScript && document.currentScript.src ? document.currentScript.src : window.location.href;
+  window.registerHealthCheck(myURL);
+})();

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>aiIntegrator Tester</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: 20px auto; }
+    label { font-weight: bold; display: block; margin-top: 10px; }
+    input, textarea, select { width: 100%; padding: 8px; margin-top: 5px; }
+    button { padding: 10px 20px; margin-top: 15px; }
+    pre { background: #f4f4f4; padding: 10px; border: 1px solid #ddd; }
+  </style>
+</head>
+<body>
+  <h1>aiIntegrator Tester</h1>
+  <form id="testForm">
+    <label for="context">Context (optional):</label>
+    <textarea id="context" rows="2" placeholder="Enter context (optional)"></textarea>
+    
+    <label for="prompt">Prompt (required):</label>
+    <textarea id="prompt" rows="2" placeholder="Enter prompt" required></textarea>
+    
+    <label for="responseLength">Response Length (optional, in characters):</label>
+    <input type="number" id="responseLength" placeholder="e.g. 100">
+    
+    <label for="formatting">Formatting (optional):</label>
+    <input type="text" id="formatting" placeholder="Enter formatting instructions">
+    
+    <label for="llmType">LLM Type:</label>
+    <select id="llmType">
+      <option value="manual">Manual LLM</option>
+      <option value="openai">OpenAI LLM</option>
+      <option value="google">Google LLM</option>
+    </select>
+    
+    <label for="apiKey">API Key:</label>
+    <input type="text" id="apiKey" placeholder="Enter your API key">
+    
+    <button type="submit">Get AI Response</button>
+  </form>
+  
+  <h2>Result:</h2>
+  <pre style="width:100%; height: 1000px;" id="result"></pre>
+  
+  <!-- Include the aiIntegrator script -->
+  <script src="ai_integrator.js"></script>
+  <script>
+    document.getElementById("testForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      
+      // Save LLM settings to sessionStorage for the aiIntegrator to use
+      sessionStorage.setItem("llmType", document.getElementById("llmType").value);
+      sessionStorage.setItem("llmApiKey", document.getElementById("apiKey").value);
+      
+      // Retrieve form values
+      const context = document.getElementById("context").value;
+      const prompt = document.getElementById("prompt").value;
+      const responseLength = document.getElementById("responseLength").value;
+      const formatting = document.getElementById("formatting").value;
+      
+      // Instantiate and call aiIntegrator
+      const aiInt = new aiIntegrator(context, prompt, responseLength, formatting);
+      const resultElem = document.getElementById("result");
+      resultElem.textContent = "Waiting for response...";
+      
+      const response = await aiInt.getResponse();
+      resultElem.textContent = response;
+    });
+  </script>
+</body>
+</html>

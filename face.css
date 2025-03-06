@@ -1,12 +1,10 @@
 /*
-  face.css
-  --------
-  This stylesheet contains all the CSS for the face drawing API.
-  It includes global styles, styles for the face container, all individual face parts,
-  and the animations (blinking, aspirated puff/cloud, etc.).
-*/
-
-
+ * File: face.css
+ * Description: Contains all CSS styles for the face drawing API, including layout, animations, and individual face part styling.
+ * Version: 1.0.0
+ * Comments: Styles the face container, parts, and control elements for FaceAPI.
+ * MD5 Sum: [INSERT_MD5_HASH_HERE]
+ */
 /* Controls (Checkboxes) */
 #FcE_controls {
   margin-bottom: 20px;
